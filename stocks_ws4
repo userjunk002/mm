@@ -1,0 +1,70 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import linear_model
+#%%
+import scipy.stats as stats
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error
+#%%
+data = pd.read_csv(r'/content/532134.csv')
+print(data.head())
+#%%
+
+plt.plot(data["Open Price"], '-b',label='StockPrice')
+plt.xlabel("Months")
+plt.ylabel("Price")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Bank of Baroda Data')
+plt.show()
+
+#%%
+reg=linear_model.LinearRegression()
+x=data["Open Price"].to_numpy().reshape(-1,1)
+y=data["Close Price"]
+reg.fit(x,y)
+#%%
+print("The Coefficients are")
+print(reg.coef_)
+print("Correleation Coeff")
+print(reg.score(x, y))
+# print("R2 score is",r2_score(y, reg2.predict(x)))
+print(stats.ttest_ind(a=y, b=reg.predict(x), equal_var=True))
+print("The mean Squared error is: ",mean_squared_error(y, reg.predict(x)))
+#%%
+#%%
+reg=linear_model.LinearRegression()
+x=data["Low Price"].to_numpy().reshape(-1,1)
+y=data["High Price"]
+reg.fit(x,y)
+#%%
+print("The Coefficients are")
+print(reg.coef_)
+print("Correleation Coeff")
+print(reg.score(x, y))
+# print("R2 score is",r2_score(y, reg2.predict(x)))
+print(stats.ttest_ind(a=y, b=reg.predict(x), equal_var=True))
+print("The mean Squared error is: ",mean_squared_error(y, reg.predict(x)))
+#%%
+# mymodel = np.poly1d(np.polyfit(data["Open Price"], data["Close Price"], 1))
+plt.plot(data["Open Price"], data["Close Price"], 'bo',label='yi')
+plt.plot(data["Open Price"],reg.predict(x),  label="precictedY", color='brown')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Linear Regression')
+plt.show()
+#%%
+reg2=linear_model.LinearRegression()
+x=data[["Open Price","Low Price","High Price"]]
+y=data["Close Price"]
+reg2.fit(x,y)
+#%%
+print("The Coefficients are")
+print(reg2.coef_)
+print("Correleation Coeff")
+print(reg2.score(x, y))
+# print("R2 score is",r2_score(y, reg2.predict(x)))
+print(stats.ttest_ind(a=y, b=reg2.predict(x), equal_var=True))
+print("The mean Squared error is: ",mean_squared_error(y, reg2.predict(x)))
+#%%
