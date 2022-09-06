@@ -1,0 +1,44 @@
+print("Worksheet 3 problem 4")
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+from sklearn.metrics import r2_score
+
+
+x = np.array([2.27,2.76,3.27,3.31,3.70,3.85,4.31,4.39,4.42,4.81,4.90,5.05,5.21,5.62,5.88])
+y = np.array([2500,365,23700,5491,14000,78200,70700,138000,304500,341948,49375,260200,867023,1640000,1092759])
+
+x=np.log2(x)
+y=np.log2(y)
+
+mymodel = np.poly1d(np.polyfit(x, y, 1))
+
+plt.plot(x, y, 'bo',label='yi')
+plt.plot(x,mymodel(x),  label="precictedY", color='green')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Linear Regression')
+plt.show()
+
+predictedY=mymodel(x)
+ans=np.exp2(mymodel.coefficients)
+print(mymodel.coefficients)
+print("a is ",ans[0]," \nb is ",ans[1])
+
+print("For Sub Division 2")
+y=np.array([2500,365,23700,5491,14000,78200,70700,138000,304500,341948,49375,260200,867023,1640000,1092759])
+
+a=np.sum(x*y)/np.sum(x**2)
+fn = lambda x: a*x
+
+plt.plot(x, y, 'bo',label='yi')
+plt.plot(x,fn(x),  label="precictedY", color='green')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Linear Regression')
+plt.show()
+
+predictedY=fn(x)
+print("a is ",a)
