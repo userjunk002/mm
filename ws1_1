@@ -1,0 +1,168 @@
+import matplotlib.pyplot as plt
+import math as m
+import operator as op
+from functools import reduce
+import scipy.stats as stats
+from statistics import mean
+from pprint import pprint
+
+def func(r, a, n):
+  return (r**n * a)
+  
+# i) r = 0
+# a0 = 0
+r1 = 0
+n1 = 20
+a_0 = 0
+ans = []
+
+for i in range(1, n1+1):
+  ans.append(func(r1, a_0, i))
+
+x = [i for i in range(1, n1+1)]
+
+plt.title("case i) r = 0, a0 = 0")
+plt.plot(x, ans)
+
+# i) r = 0
+# a0 = 50
+r1 = 0
+n1 = 20
+a_0 = 50
+ans = []
+
+for i in range(1, n1+1):
+  ans.append(func(r1, a_0, i))
+
+x = [i for i in range(1, n1+1)]
+
+plt.title("case i) r = 0, a0 = 50")
+plt.plot(x, ans)
+
+# ii) 0 < r < 1
+# a0 = 0
+a_0 = 0
+r2 = [0.2, 0.4, 0.6, 0.8]
+n2 = 20
+ans = []
+
+for i in r2:
+  temp = []
+
+  for j in range(1, n2+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n2+1)]
+
+plt.title("case ii) 0 < r < 1, a0 = 0")
+for i in range(len(r2)):
+  plt.plot(x, ans[i])
+
+# ii) 0 < r < 1
+# a0 = 50
+a_0 = 50
+r2 = [0.2, 0.4, 0.6, 0.8]
+n2 = 20
+ans = []
+
+for i in r2:
+  temp = []
+
+  for j in range(1, n2+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n2+1)]
+
+plt.title("case ii) 0 < r < 1, a0 = 50")
+for i in range(len(r2)):
+  plt.plot(x, ans[i])
+
+# iii) -1 < r < 0
+# a0 = 0
+a_0 = 0
+r3 = [-0.2, -0.4, -0.6, -0.8]
+n3 = 20
+ans = []
+
+for i in r3:
+  temp = []
+
+  for j in range(1, n3+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n3+1)]
+
+plt.title("case iii) -1 < r < 0, a0 = 0")
+for i in range(len(r3)):
+  plt.plot(x, ans[i])
+  
+# iii) -1 < r < 0
+# a0 = 50
+a_0 = 50
+r3 = [-0.2, -0.4, -0.6, -0.8]
+n3 = 20
+ans = []
+
+for i in r3:
+  temp = []
+
+  for j in range(1, n3+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n3+1)]
+
+plt.title("case iii) -1 < r < 0, a0 = 50")
+for i in range(len(r3)):
+  plt.plot(x, ans[i])
+  
+# iv) mod(r) > 1
+# a0 = 0
+a_0 = 0
+r4 = [-2, -4, 6, 8]
+n4 = 20
+ans = []
+
+for i in r4:
+  temp = []
+
+  for j in range(1, n4+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n4+1)]
+
+plt.title("case iv) mod(r) > 1, a0 = 0")
+for i in range(len(r4)):
+  plt.plot(x, ans[i])
+
+# iv) mod(r) > 1
+# a0 = 0
+a_0 = 50
+r4 = [-2, -4, 6, 8]
+n4 = 20
+ans = []
+
+for i in r4:
+  temp = []
+
+  for j in range(1, n4+1):
+    temp.append(func(i, a_0, j))
+
+  ans.append(temp)
+
+x = [i for i in range(1, n4+1)]
+
+plt.title("case iv) mod(r) > 1, a0 = 50")
+for i in range(len(r4)):
+  plt.plot(x, ans[i])
+  
+  
