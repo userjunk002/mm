@@ -1,0 +1,66 @@
+import numpy as np
+import matplotlib.pyplot as pt
+from scipy import stats
+
+x=[1989,1990,1991,1992,1993,1994,1995]
+box=10000
+y=[21.0,19.4,22.6,28.2,30.4,24.0,25.0]
+
+for i in range(len(y)):
+    y[i]*=box
+
+#ploat the graph
+x=np.array(x)
+y=np.array(y)
+pt.plot(x,y)
+
+
+
+def calculate_y(y0):
+    for i in range(0,len(y)):
+        dummy=0
+        dummy=intercept+(slope*x[i])
+        y0.append(dummy)
+    
+        
+#fit linear Regression Model
+slope,intercept,r,p,std_err=stats.linregress(x,y)
+y0=[]
+calculate_y(y0)
+
+#linear EQ
+print("Y= "+str(slope)+" x + "+str(intercept))       
+pt.plot(x,y0)
+pt.show()
+
+#percent cyclic variation and relative cyclic
+percent=[]
+relative=[]
+for i in range(len(y)):
+    dummy=(y[i]/y0[i])*100
+    percent.append(dummy)
+    dummy=((y[i]-y0[i])/y0[i])*100
+    relative.append(dummy)
+
+print(" Percent cyclic variation")
+print(percent)
+
+print("relative cyclic variation")
+print(relative)
+
+#t-test
+
+t,p=stats.ttest_ind(y,y0)
+print("T-test value: ",p)    
+
+#fluctuation
+a=max(percent)
+b=max(relative)
+
+p=percent.index(a)
+q=relative.index(b)
+
+print("In Percent of trend fluctuation is at the year: ",x[p])
+print("In relative cyclic variation fluctuation is at the year: ",x[q])
+
+print("Yes the year is same in both measure")
