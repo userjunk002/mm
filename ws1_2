@@ -1,0 +1,27 @@
+import matplotlib.pyplot as plt
+import math as m
+import operator as op
+from functools import reduce
+import scipy.stats as stats
+from statistics import mean
+from pprint import pprint
+
+result = []
+doses=[0.1,0.2,0.3]
+
+def findValues(j):
+    if(j==0):
+        result.append(0.5*doses[j%3])
+        findValues(j+1)
+    elif(j==100):
+        return
+    else:
+        result.append(0.5*(result[j-1]+doses[j%3]))
+        findValues(j+1)
+        
+findValues(0)
+
+result
+
+plt.plot(result)
+plt.show()
