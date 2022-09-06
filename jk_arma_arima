@@ -1,0 +1,47 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import linear_model
+#%%
+import scipy.stats as stats
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error
+#%%
+data = pd.read_csv("F:\\sem9\\mathematicalModeling\\worksheet4\\DailyInfosys.csv")
+print(data.head())
+#%%
+
+plt.plot(data["Open Price"], '-b',label='StockPrice')
+plt.xlabel("Months")
+plt.ylabel("Price")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Infosys Data')
+plt.show()
+
+#%%
+series_data=data[["Open Price"]]
+pd.plotting.autocorrelation_plot(series_data)
+plt.show()
+#%%
+from statsmodels.tsa.arima.model import ARIMA
+import statsmodels.api as sm
+#%%
+#d=0 for ARMA greater than 0 is ARIMA (p,d,q)
+model = ARIMA(series_data, order=(5,0,4))
+model_fit = model.fit()
+# summary of fit model
+print(model_fit.summary())
+# line plot of residuals
+residuals = pd.DataFrame(model_fit.resid)
+residuals.plot()
+plt.show()
+# density plot of residuals
+residuals.plot(kind='kde')
+plt.show()
+# summary stats of residuals
+print(residuals.describe())
+
+#%%
+sm.graphics.tsa.plot_pacf(series_data, lags=40, method="ywm")
+plt.show()
+#%%
