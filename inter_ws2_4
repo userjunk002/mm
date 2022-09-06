@@ -1,0 +1,19 @@
+x = np.array([0,8,16,24,32,40])
+y = np.array([14.621,11.843,9.870,8.418,7.305,6.413])
+# apply cubic spline interpolation
+cs = CubicSpline(x, y)
+# Apply Linear interpolation
+linear_int = interp1d(x,y)
+  
+ys = linear_int(x)
+  
+# plot linear interpolation
+plt.plot(x, y, 'o', label='data')
+plt.plot(x,ys,  label="S", color='green')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Cubic Spline Interpolation')
+plt.show()
+print("Value at x=36 is ",linear_int(36))
+print("Value at x=4 is ",linear_int(4))
