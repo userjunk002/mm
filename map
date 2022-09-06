@@ -1,0 +1,19 @@
+1. jk_arma_arima - arima and arma jk
+2. krish_arima_arma - arima and arma krishnan
+3. cyclic_ws_5_1 - cyclic variation ws_5_1
+4. cma_ws5_2 - cma ws_5_2
+5. cma_plot_ws5_3 - cma and plot ws_5_3
+6. cma_cyclic_ws5_4 - cma and cyclic, seasonal and deseaonalize ws5_4
+7. stocks_ws4 - stocks company LR
+8. LR_ws3_1 - Linear regression and lack test
+9. LR_ws3_2 - Linear regression and lack of fit test
+10. LR_ws3_1 - Linear regression, p = aV^n formula
+11. LR_ws3_5 - Linear regression, T = Cr^a formula
+12. inter_ws2_1 - Interpolation, statistical test
+13. inter_ws2_2 - Interpolation, temperature forumula exponential curve
+14. inter_ws_3 - Interpolation, newton divided and lagrange's
+15. inter_ws2_4 - Interpolation, cubic spline
+16. ws1_1 - a = r
+17. ws1_2 - plotting
+18. ws1_3 - graph for an = 47ft and difference equation model
+19. ws1_4 - newton forward interpolation and t-test
