@@ -1,0 +1,47 @@
+print("Worksheet 3 Problem 2")
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+from sklearn.metrics import r2_score
+
+
+x = np.array([195,255,195,255,255,255,255,195,255,255,255,255,255,340])
+y = np.array([1004,1636,852,1506,1272,1270,1269,903,1555,1260,1146,1276,1225,1321])
+
+mymodel = np.poly1d(np.polyfit(x, y, 1))
+
+plt.plot(x, y, 'o', label='yi')
+plt.plot(x,mymodel(x),  label="precictedY", color='green')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Linear Regression')
+plt.show()
+
+predictedY=mymodel(x)
+
+print(mymodel.coefficients)
+print("Correleation Coeff")
+print(np.corrcoef(x,y))
+print("R2 score is",r2_score(y, mymodel(x)))
+print(stats.ttest_ind(a=y, b=predictedY, equal_var=True))
+
+x = np.array([4.0,4.0,4.6,4.6,4.2,4.1,4.6,4.3,4.3,4.0,4.7,4.3,4.72,4.3])
+
+mymodel = np.poly1d(np.polyfit(x, y, 1))
+
+plt.plot(x, y, 'o', label='yi')
+plt.plot(x,mymodel(x),  label="precictedY", color='green')
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend(loc='upper right', ncol=2)
+plt.title('Linear Regression')
+plt.show()
+
+predictedY=mymodel(x)
+
+print(mymodel.coefficients)
+print("Correleation Coeff")
+print(np.corrcoef(x,y))
+print(stats.ttest_ind(a=y, b=predictedY, equal_var=True))
+print("R2 score is",r2_score(y, mymodel(x)))
