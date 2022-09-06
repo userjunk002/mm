@@ -1,0 +1,87 @@
+import matplotlib.pyplot as plt
+import math as m
+import operator as op
+from functools import reduce
+import scipy.stats as stats
+from statistics import mean
+from pprint import pprint
+
+force = [i for i in range(10, 100, 10)]
+stretch = [19, 57, 94, 134, 173, 216, 256, 297, 343]
+n = len(stretch)
+ans = forward_diff_table(stretch, [], n)
+
+values_pred = []
+
+for i in range(len(force)):
+  x = force[i]
+  h = 10
+  x_0 = force[0]
+
+  u = (x - x_0) / h
+  #print(u)
+
+  interpolated_value = forward_interpolation(stretch[0], len(ans), ans, u)
+  values_pred.append(interpolated_value)
+
+values_pred
+
+plt.plot(force, values_pred)
+
+vals = []
+x_vals = [15, 17, 85]
+
+x = 15
+h = 10
+x_0 = force[0]
+
+u = (x - x_0) / h
+print(u)
+
+interpolated_value = forward_interpolation(stretch[0], len(ans), ans, u)
+interpolated_value
+vals.append(interpolated_value)
+
+x = 17
+h = 10
+x_0 = force[0]
+
+u = (x - x_0) / h
+print(u)
+
+interpolated_value = forward_interpolation(stretch[0], len(ans), ans, u)
+interpolated_value
+vals.append(interpolated_value)
+
+x = 85
+h = 10
+x_0 = force[0]
+
+u = (x - x_0) / h
+print(u)
+
+interpolated_value = forward_interpolation(stretch[0], len(ans), ans, u)
+interpolated_value
+vals.append(interpolated_value)
+
+plt.plot(force, values_pred, color = "blue")
+plt.plot(x_vals, vals, color = "red", marker = "o")
+
+error = []
+
+for i in range(len(force)):
+  x = force[i]
+  h = 10
+  x_0 = force[0]
+
+  u = (x - x_0) / h
+  y_hat = forward_interpolation(stretch[0], len(ans), ans, u)
+
+  error.append(stretch[i] - y_hat)
+
+error
+
+plt.plot(error)
+
+t_statistic, p_value = stats.ttest_1samp(a = error, popmean = mean(error))
+print(t_statistic , p_value)
