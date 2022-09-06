@@ -1,0 +1,128 @@
+import matplotlib.pyplot as pt
+import numpy as np
+
+x=[1992,1993,1994,1995]
+y=[293,246,231,282,301,252,227,291,304,256,239,296,306,265,240,300]
+
+#step-1
+movingAvg1=[]
+for i in range(len(y)):
+    s=0
+    a=0
+    for j in range(4):
+        if(i+j<len(y)):
+            s+=y[i+j]
+    a=s/4
+    movingAvg1.append(a)
+print(movingAvg1)
+    
+#step-2
+movingAvg2=[]
+for i in range(len(movingAvg1)):
+    s=0
+    a=0
+    for j in range(2):
+        if(i+j<len(movingAvg1)):
+         s+=movingAvg1[i+j]
+    a=s/4
+    movingAvg2.append(a)
+print(movingAvg2)
+
+#step-3
+
+percent=[0,0]
+
+for i in range(len(movingAvg2)):
+    if( i+2<len(y)):
+        dummy=(y[i+2]/movingAvg2[i])*100
+        percent.append(dummy)
+percent.append(0)    
+percent.append(0) 
+
+print(percent)
+print(len(percent))
+#step-4
+
+q1=[]
+q2=[]
+q3=[]
+q4=[]
+
+for i in range(0,13,4):
+    q1.append(percent[0+i])
+    q2.append(percent[1+i])
+    q3.append(percent[2+i])
+    q4.append(percent[3+i])
+ 
+
+list(filter(lambda num: num != 0, q1))
+list(filter(lambda num: num != 0, q4))
+
+q1.remove(max(q1))
+q1.remove(min(q1))
+          
+q2.remove(max(q2))
+q2.remove(min(q2))
+
+q3.remove(max(q3))
+q3.remove(min(q3))
+
+q4.remove(max(q4))
+q4.remove(min(q4))
+
+a1=sum(q1)/len(q1)
+a2=sum(q2)/len(q2)
+a3=sum(q3)/len(q3)
+a4=sum(q4)/len(q4)
+
+a=a1+a2+a3+a4
+
+
+print("Q1: ",a1)
+print("Q2: ",a2)
+print("Q3: ",a3)
+print("Q4: ",a4)
+
+print("Total Index: ",a)
+
+deseason_i=[]
+d=a/400
+
+deseason_i.append(a1/d)
+deseason_i.append(a2/d)
+deseason_i.append(a3/d)
+deseason_i.append(a4/d)
+
+print("modified: ",deseason_i)
+
+y0=[]
+
+for i in range(len(y)):
+    y0.append(y[i]/d)
+    
+
+
+
+LS= np.square(np.subtract(y,y0)).mean()
+
+print("Least Square: ",LS)
+
+#percent cyclic variation and relative cyclic
+percent=[]
+relative=[]
+for i in range(len(y)):
+    dummy=(y[i]/y0[i])*100
+    percent.append(dummy)
+    dummy=((y[i]-y0[i])/y0[i])*100
+    relative.append(dummy)
+
+print(" Percent cyclic variation")
+print(percent)
+
+print("relative cyclic variation")
+print(relative)
+
+pt.plot(y,y0,color="blue")
+pt.plot(y,percent,color="red")
+pt.plot(y,relative,color="pink")
+pt.show()
