@@ -1,0 +1,82 @@
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+import numpy as np
+from scipy.interpolate import CubicSpline, interp1d
+
+def u_cal(u, n):
+
+	temp = u;
+	for i in range(1, n):
+		temp = temp * (u - i);
+	return temp;
+  
+# function to find factorial to use in the interpolation formula
+def fact(n):
+	f = 1;
+	for i in range(2, n + 1):
+		f *= i;
+	return f;
+  
+# n = 11 -2 because we need to plot between 1985 to 1993
+n = 11-2;
+actualY = [731,782,833,886,956,1049,1159,1267,1367,1436,1505]
+
+y = [[0 for i in range(n)]
+		for j in range(n)];
+
+x = [];
+for i in range(n):
+    x.append(1985+i)
+    y[i][0] = actualY[i]
+
+# Calculating the forward difference
+# table
+for i in range(1, n):
+	for j in range(n - i):
+		y[j][i] = y[j + 1][i - 1] - y[j][i - 1];
+
+for i in range(n):
+	print(x[i], end = "\t");
+	for j in range(n - i):
+		print(y[i][j], end = "\t");
+	print("");
+
+
+predictionList=[]
+errorList=[]
+for j in range(n):
+    value = x[j];
+    sum = y[0][0];
+    u = (value - x[0]) / (x[1] - x[0]);
+    for i in range(1,n):
+    	sum = sum + (u_cal(u, i) * y[0][i]) / fact(i);
+    p1=round(sum, 6)
+    # print("\nValue at", value,"is", p1);
+    predictionList.append(p1)
+    errorList.append(p1-y[j][0])
+
+print("The predictions are",predictionList)
+print("The error is ",errorList)
+plt.plot(x,predictionList,color="blue")
+plt.plot(x,errorList,color="green")
+plt.scatter(x,actualY[:-2],color="red")
+plt.legend(['prediction','error','actual'])
+plt.title("prediction and actual in Newton forward")
+plt.xlabel("Speed")
+plt.ylabel("Distance")
+plt.show()
+pl=[]
+value = 1994;
+sum = y[0][0];
+u = (value - x[0]) / (x[1] - x[0]);
+for i in range(1,n):
+	sum = sum + (u_cal(u, i) * y[0][i]) / fact(i);
+pl.append(sum)   
+value = 1995;
+sum = y[0][0];
+u = (value - x[0]) / (x[1] - x[0]);
+for i in range(1,n):
+	sum = sum + (u_cal(u, i) * y[0][i]) / fact(i);
+pl.append(sum)
+print("Predicted values ",pl)
+print(stats.ttest_ind(a=np.array(actualY[-2:]), b=np.array(pl), equal_var=True))
